@@ -16,9 +16,13 @@ spec.loader.exec_module(mashup_module)
 create_mashup = mashup_module.create_mashup
 
 def send_email_with_zip(receiver_email, zip_filename):
+    sender_email = os.getenv("MASHUP_EMAIL")
+    app_password = os.getenv("MASHUP_APP_PASSWORD")
+    if not sender_email or not app_password:
+        raise ValueError("Missing email credentials. Set MASHUP_EMAIL and MASHUP_APP_PASSWORD.")
     msg = EmailMessage()
-    msg['Subject'] = 'Music Mashup Result - Mehak Goyal (102303596)'
-    msg['From'] = 'YOUR_EMAIL@gmail.com'
+    msg['Subject'] = 'Music Mashup Result - Arjun Angirus (102303596)'
+    msg['From'] = sender_email
     msg['To'] = receiver_email
     msg.set_content('Attached is the zip file containing your mashup.')
 
@@ -26,7 +30,7 @@ def send_email_with_zip(receiver_email, zip_filename):
         msg.add_attachment(f.read(), maintype='application', subtype='zip', filename='102303596_mashup.zip')
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
-        smtp.login('YOUR_EMAIL@gmail.com', 'YOUR_APP_PASSWORD')
+        smtp.login(sender_email, app_password)
         smtp.send_message(msg)
 
 @app.route('/')

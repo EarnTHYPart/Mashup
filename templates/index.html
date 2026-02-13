@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mashup Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <style>
+        :root {
+            --bg-1: #0f172a;
+            --bg-2: #1e293b;
+            --accent: #f59e0b;
+            --accent-2: #22c55e;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --card: rgba(15, 23, 42, 0.8);
+            --border: rgba(148, 163, 184, 0.25);
+            --shadow: rgba(2, 6, 23, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            background: radial-gradient(circle at top left, #1e3a8a 0%, transparent 45%),
+                radial-gradient(circle at bottom right, #0f766e 0%, transparent 40%),
+                linear-gradient(135deg, var(--bg-1), var(--bg-2));
+            font-family: "JetBrains Mono", monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 18px;
+        }
+
+        .card {
+            width: min(720px, 100%);
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 20px 50px var(--shadow);
+            padding: 36px 32px;
+            backdrop-filter: blur(12px);
+            animation: lift 700ms ease-out;
+        }
+
+        @keyframes lift {
+            from {
+                transform: translateY(18px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-family: "DM Serif Display", serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            margin: 0;
+            letter-spacing: 0.5px;
+        }
+
+        p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        form {
+            display: grid;
+            gap: 16px;
+        }
+
+        .row {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: var(--muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text);
+            font-family: inherit;
+            transition: border 200ms ease, box-shadow 200ms ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: rgba(245, 158, 11, 0.8);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+        }
+
+        .hint {
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+
+        button {
+            margin-top: 8px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+            color: #0f172a;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 160ms ease, box-shadow 160ms ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(34, 197, 94, 0.25);
+        }
+
+        footer {
+            margin-top: 18px;
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        @media (max-width: 560px) {
+            .card {
+                padding: 28px 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <header>
+            <h1>Audio Mashup Builder</h1>
+            <p>
+                Pick a singer, choose how many videos to use, and decide the clip
+                length. We will stitch the clips into one MP3 and email it to you.
+            </p>
+        </header>
+        <form action="/submit" method="POST">
+            <div>
+                <label for="singer">Singer or keyword</label>
+                <input id="singer" name="singer" type="text" placeholder="Arijit Singh" required />
+            </div>
+            <div class="row">
+                <div>
+                    <label for="num_videos">Number of videos (N)</label>
+                    <input id="num_videos" name="num_videos" type="number" min="11" step="1" value="12" required />
+                </div>
+                <div>
+                    <label for="duration">Clip duration (Y seconds)</label>
+                    <input id="duration" name="duration" type="number" min="21" step="1" value="25" required />
+                </div>
+            </div>
+            <div>
+                <label for="email">Email to receive the mashup</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="hint">
+                Note: N must be greater than 10 and Y must be greater than 20 seconds.
+            </div>
+            <button type="submit">Generate mashup</button>
+        </form>
+        <footer>Powered by Flask, pytubefix, and moviepy.</footer>
+    </main>
+</body>
+
+</html>
