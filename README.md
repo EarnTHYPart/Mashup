@@ -5,7 +5,7 @@ This project provides a small Flask web app that generates an audio mashup from 
 ## What the code does
 
 - `app.py` runs a Flask server with two routes:
-  - `/` renders a form (expects `templates/index.html`).
+  - `/` renders a form (see `templates/index.html`).
   - `/submit` accepts form data, generates a mashup, zips it, and emails it to the provided address.
 - `102303596.py` contains the mashup logic:
   - Searches YouTube for the singer/keyword.
@@ -36,11 +36,11 @@ This project provides a small Flask web app that generates an audio mashup from 
    ```
 2. Ensure FFmpeg is installed:
    - Windows: install FFmpeg and add it to PATH.
-3. Set your email credentials in `app.py`:
-   - `YOUR_EMAIL@gmail.com`
-   - `YOUR_APP_PASSWORD`
-   - Use a Gmail App Password, not your normal password.
-4. Create a basic form template at `templates/index.html` that posts to `/submit`.
+3. Add your email credentials in `.env`:
+  - `MASHUP_EMAIL=your_email@gmail.com`
+  - `MASHUP_APP_PASSWORD=your_app_password`
+  - Use a Gmail App Password, not your normal password.
+4. Create a basic form template at `templates/index.html` that posts to `/submit` (already included).
 
 ## Run
 
@@ -55,3 +55,7 @@ Open `http://127.0.0.1:5000` in a browser.
 - `N` must be greater than 10 and `Y` must be greater than 20 seconds.
 - Downloads can take time depending on network and YouTube availability.
 - YouTube results and stream availability may change over time.
+
+## Author
+
+Arjun Angirus
