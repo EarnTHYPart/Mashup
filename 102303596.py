@@ -1,7 +1,12 @@
 import sys
 import os
 from pytubefix import Search
-from moviepy.editor import AudioFileClip, concatenate_audioclips
+
+try:
+    from moviepy.editor import AudioFileClip, concatenate_audioclips
+except ModuleNotFoundError:
+    # MoviePy 2.x compatibility fallback
+    from moviepy import AudioFileClip, concatenate_audioclips
 
 def create_mashup(singer, n, duration, output_file):
     # Check if N > 10
