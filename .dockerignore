@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.venv/
+.git/
+.gitignore
+.env
+temp_*.mp4
+temp_audio_*.mp3
+102303596-output.mp3
+102303596-mashup.zip
