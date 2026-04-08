@@ -34,11 +34,11 @@ This project provides web apps (Flask and Streamlit) that generate an audio mash
 
 1. Install dependencies:
    ```bash
-   pip install flask pytubefix moviepy
+  pip install -r requirements.txt
    ```
 2. Ensure FFmpeg is installed:
    - Windows: install FFmpeg and add it to PATH.
-3. Add your email credentials in `.env`:
+3. Add your email credentials as environment variables:
   - `MASHUP_EMAIL=your_email@gmail.com`
   - `MASHUP_APP_PASSWORD=your_app_password`
   - Use a Gmail App Password, not your normal password.
@@ -59,6 +59,14 @@ streamlit run streamlit_app.py
 ```
 
 Open `http://localhost:8501` in a browser.
+
+On local Windows PowerShell, set secrets before running Streamlit:
+
+```powershell
+$env:MASHUP_EMAIL="your_email@gmail.com"
+$env:MASHUP_APP_PASSWORD="your_gmail_app_password"
+streamlit run streamlit_app.py
+```
 
 ## Deploy on Streamlit Community Cloud
 
